@@ -1,0 +1,42 @@
+{
+  "name": "storybook-deeper-sort",
+  "version": "0.0.0",
+  "description": "Powers up stories sort by providing more levels of control.",
+  "repository": "git@github.com:alex-tavares/storybook-deeper-sort.git",
+  "author": "Alex Tavares",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "postversion": "git push --follow-tags",
+    "prepublishOnly": "yarn build",
+    "build": "babel ./src --out-dir ./lib --ignore **/*.test.js",
+    "format": "prettier --write ./src",
+    "lint": "eslint  --fix ./src",
+    "test": "jest ./src"
+  },
+  "browserslist": [
+    "defaults"
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.18.10",
+    "@babel/preset-env": "^7.18.10",
+    "codecov": "^3.8.3",
+    "eslint": "^8.21.0",
+    "eslint-config-prettier": "^8.5.0",
+    "jest": "^28.1.3",
+    "prettier": "2.7.1"
+  },
+  "keywords": [
+    "storybook-addons",
+    "storybook-addon",
+    "storybook",
+    "addon",
+    "sort",
+    "deep-sort",
+    "deeper-sort"
+  ]
+}
