@@ -1,6 +1,6 @@
 {
   "name": "storybook-deeper-sort",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Powers up stories sort by providing more levels of control.",
   "repository": "git@github.com:alex-tavares/storybook-deeper-sort.git",
   "author": "Alex Tavares",
