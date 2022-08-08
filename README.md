@@ -7,6 +7,7 @@ Provides more flexibility and more levels of control to story sort.
 ## Table of Contents
 
 - [About](#about)
+- [Installation](#installation)
 - [Commands](#commands)
   - [build](#build)
   - [test](#test)
@@ -17,19 +18,21 @@ Provides more flexibility and more levels of control to story sort.
 This package provides a function to sort stories with an API similar to the storybooks' order array but providing more than two levels of control.
 
 Using the built-in order array, you can have 2 levels of control:
+
 ```js
 // .storybook/preview.js
 
 export const parameters = {
   options: {
     storySort: {
-      order: ['Intro', 'Pages', ['Home', 'Login', 'Admin'], 'Components'],
+      order: ["Intro", "Pages", ["Home", "Login", "Admin"], "Components"],
     },
   },
 };
-``` 
+```
 
 The code above would generate:
+
 ```
 Intro/
 ├─ Welcome
@@ -61,9 +64,10 @@ export const parameters = {
     },
   },
 };
-``` 
+```
 
 The code above would generate:
+
 ```
 Intro/
 ├─ Welcome
@@ -81,6 +85,19 @@ Components/
 │  ├─ A
 │  ├─ B
 ```
+
+## Installation
+
+```bash
+# npm
+
+npm i -D storybook-deeper-sort
+
+# yarn
+
+yarn add -D storybook-deeper-sort
+```
+
 ## Commands
 
 ### test
