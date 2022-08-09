@@ -8,10 +8,6 @@ Provides more flexibility and more levels of control to story sort.
 
 - [About](#about)
 - [Installation](#installation)
-- [Commands](#commands)
-  - [build](#build)
-  - [test](#test)
-  - [lint](#lint)
 
 ## About
 
@@ -91,25 +87,9 @@ Components/
 ```bash
 # npm
 
-npm i -D storybook-deeper-sort
+npm i storybook-deeper-sort --save-dev
 
 # yarn
 
 yarn add -D storybook-deeper-sort
-```
-
-## Commands
-
-### test
-
-```bash
-# run tests
-yarn test
-```
-
-### lint
-
-```bash
-# run linting
-yarn lint
 ```
