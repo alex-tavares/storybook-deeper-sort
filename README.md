@@ -139,9 +139,7 @@ The `deeperSort` function accepts an optional `config` parameter that allows you
 
 Currently, the only available option is `docsFirst`. By default, `deeperSort` prioritizes `docs`, placing them before other story types.
 
-To disable the prioritization of `docs
-
-`stories, you can set`docsFirst`to`false`:
+To disable the prioritization of `docs`, you can set`docsFirst`to`false`:
 
 ```js
 // .storybook/preview.js
