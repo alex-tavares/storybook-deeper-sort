@@ -1,22 +1,38 @@
 const getOrder = (item, orderObject) =>
   orderObject[item]?.order ?? Object.keys(orderObject).length;
 
-const compare = (a, b, orderObject) => {
-  if (orderObject) {
-    if (a in orderObject && b in orderObject) {
-      return getOrder(a, orderObject) - getOrder(b, orderObject);
+const compare = ({ aFile, bFile, orderObject, docsFirst }) => {
+  if (docsFirst) {
+    if (aFile.type === "docs" && bFile.type === "docs") {
+      return aFile.name.localeCompare(bFile.name);
     }
 
-    if (a in orderObject) {
-      return getOrder(a, orderObject) - getOrder("*", orderObject);
+    if (aFile.type === "docs") {
+      return -1;
     }
 
-    if (b in orderObject) {
-      return getOrder("*", orderObject) - getOrder(b, orderObject);
+    if (bFile.type === "docs") {
+      return 1;
     }
   }
 
-  return a.localeCompare(b);
+  if (orderObject) {
+    if (aFile.name in orderObject && bFile.name in orderObject) {
+      return (
+        getOrder(aFile.name, orderObject) - getOrder(bFile.name, orderObject)
+      );
+    }
+
+    if (aFile.name in orderObject) {
+      return getOrder(aFile.name, orderObject) - getOrder("*", orderObject);
+    }
+
+    if (bFile.name in orderObject) {
+      return getOrder("*", orderObject) - getOrder(bFile.name, orderObject);
+    }
+  }
+
+  return aFile.name.localeCompare(bFile.name);
 };
 
 const transformArrayIntoOrderObject = (arr, obj = {}) => {
@@ -40,18 +56,22 @@ const transformArrayIntoOrderObject = (arr, obj = {}) => {
   return obj;
 };
 
-const storySort = (orderArray) => {
+const deeperSortSetup = (orderArray) => {
   const orderObject = transformArrayIntoOrderObject(orderArray);
 
-  return (a, b) => {
-    const aStoryName = a[1].story;
-    const bStoryName = b[1].story;
+  // eslint-disable-next-line no-undef
+  globalThis.deeperSort = (a, b, config = {}) => {
+    const { docsFirst = true } = config;
 
-    const aPaths = a[1].kind.split("/").concat(aStoryName);
-    const bPaths = b[1].kind.split("/").concat(bStoryName);
+    const aPaths = a.tags.includes("unattached-mdx")
+      ? a.title.split("/")
+      : a.title.split("/").concat(a.name);
 
-    const matchingLevels =
-      aPaths.length < bPaths.length ? aPaths.length : bPaths.length;
+    const bPaths = b.tags.includes("unattached-mdx")
+      ? b.title.split("/")
+      : b.title.split("/").concat(b.name);
+
+    const matchingLevels = Math.min(aPaths.length, bPaths.length);
 
     let currentOrderObj = orderObject;
 
@@ -63,7 +83,18 @@ const storySort = (orderArray) => {
       }
 
       if (aPaths[level] !== bPaths[level]) {
-        return compare(aPaths[level], bPaths[level], currentOrderObj);
+        return compare({
+          aFile: {
+            name: aPaths[level],
+            type: level === aPaths.length - 1 ? a.type : "dir",
+          },
+          bFile: {
+            name: bPaths[level],
+            type: level === bPaths.length - 1 ? b.type : "dir",
+          },
+          orderObject: currentOrderObj,
+          docsFirst,
+        });
       }
     }
 
@@ -71,4 +102,4 @@ const storySort = (orderArray) => {
   };
 };
 
-export default storySort;
+export default deeperSortSetup;
