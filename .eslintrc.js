@@ -1,10 +1,10 @@
 module.exports = {
-  extends: ["eslint:recommended", "prettier"],
+  extends: ["eslint:recommended", "prettier", "plugin:storybook/recommended"],
   parserOptions: {
     ecmaVersion: "latest",
-    sourceType: "module",
+    sourceType: "module"
   },
   env: {
-    jest: true,
-  },
+    jest: true
+  }
 };
