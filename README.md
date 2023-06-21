@@ -56,7 +56,7 @@ To achieve deeper control over the story sort order, you can use the `deeperSort
 Using `deeperSort`, the following levels of control become possible:
 
 ```js
-// .storybook/preview.js
+// .storybook/main.js
 
 import deeperSortSetup from "storybook-deeper-sort";
 
