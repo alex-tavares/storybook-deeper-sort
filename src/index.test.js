@@ -380,10 +380,8 @@ describe("index", () => {
       type: "story",
     };
 
-    deeperSortSetup([]);
+    deeperSortSetup([], { docsFirst: false });
 
-    expect(globalThis.deeperSort(aParams, bParams, { docsFirst: false })).toBe(
-      1
-    );
+    expect(globalThis.deeperSort(aParams, bParams)).toBe(1);
   });
 });

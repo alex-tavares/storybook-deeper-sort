@@ -56,13 +56,12 @@ const transformArrayIntoOrderObject = (arr, obj = {}) => {
   return obj;
 };
 
-const deeperSortSetup = (orderArray) => {
+const deeperSortSetup = (orderArray, config = {}) => {
+  const { docsFirst = true } = config;
   const orderObject = transformArrayIntoOrderObject(orderArray);
 
   // eslint-disable-next-line no-undef
-  globalThis.deeperSort = (a, b, config = {}) => {
-    const { docsFirst = true } = config;
-
+  globalThis.deeperSort = (a, b) => {
     const aPaths = a.tags.includes("unattached-mdx")
       ? a.title.split("/")
       : a.title.split("/").concat(a.name);

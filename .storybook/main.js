@@ -1,12 +1,10 @@
 /** @type { import('@storybook/react-vite').StorybookConfig } */
 import deeperSortSetup from "../src/index";
 
-deeperSortSetup([
-  "Pages",
-  ["Admin", "Login", "Home"],
-  "Components",
-  ["*", ["C", "*"]],
-]);
+deeperSortSetup(
+  ["Pages", ["Admin", "Login", "Home"], "Components", ["*", ["C", "*"]]],
+  { docsFirst: false }
+);
 
 const config = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],

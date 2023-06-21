@@ -135,22 +135,21 @@ The `deeperSort` function takes into account the order array provided in `deeper
 
 ## Options
 
-The `deeperSort` function accepts an optional `config` parameter that allows you to customize its behavior.
+The `deeperSortSetup` function accepts an optional `config` parameter that allows you to customize its behavior.
 
 Currently, the only available option is `docsFirst`. By default, `deeperSort` prioritizes `docs`, placing them before other story types.
 
 To disable the prioritization of `docs`, you can set`docsFirst`to`false`:
 
 ```js
-// .storybook/preview.js
+// .storybook/main.js
 
-import deeperSort from "storybook-deeper-sort";
+import deeperSortSetup from "storybook-deeper-sort";
 
-export const parameters = {
-  options: {
-    storySort: (a, b) => globalThis.deeperSort(a, b, { docsFirst: false }),
-  },
-};
+deeperSortSetup(
+  ["Pages", ["Admin", "Login", "Home"], "Components", ["*", ["C", "*"]]],
+  { docsFirst: false }
+);
 ```
 
 By setting `{ docsFirst: false }`, `deeperSort` will sort all story types based on their order in the provided order array without giving special priority to `docs` stories.
