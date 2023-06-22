@@ -42,14 +42,13 @@ const transformArrayIntoOrderObject = (arr, obj = {}) => {
     }
 
     if (Array.isArray(item)) {
-      if (typeof array[index - 1] !== "string") {
+      const parent = array[index - 1];
+
+      if (typeof parent !== "string") {
         return obj;
       }
 
-      obj[array[index - 1]].children = transformArrayIntoOrderObject(
-        item,
-        obj[index - 1]
-      );
+      obj[parent].children = transformArrayIntoOrderObject(item);
     }
   });
 
