@@ -35,7 +35,9 @@ const compare = ({ aFile, bFile, orderObject, docsFirst }) => {
   return aFile.name.localeCompare(bFile.name);
 };
 
-const transformArrayIntoOrderObject = (arr, obj = {}) => {
+const transformArrayIntoOrderObject = (arr) => {
+  const obj = {};
+
   arr?.forEach((item, index, array) => {
     if (typeof item === "string") {
       obj[item] = { order: index, children: null };
