@@ -384,4 +384,44 @@ describe("index", () => {
 
     expect(globalThis.deeperSort(aParams, bParams)).toBe(1);
   });
+
+  it("should ignore provided invalid pattern", () => {
+    let aParams = {
+      title: "path",
+      name: "customStory",
+      tags: [],
+      type: "story",
+    };
+    let bParams = {
+      title: "path",
+      name: "anotherStory",
+      tags: [],
+      type: "story",
+    };
+
+    deeperSortSetup([
+      "Pages",
+      ["Home", "*"],
+      ["Invalid Pattern"],
+      "*",
+      ["customStory", "*"],
+    ]);
+
+    expect(globalThis.deeperSort(aParams, bParams)).toBe(-1);
+
+    aParams = {
+      title: "Pages",
+      name: "Home",
+      tags: [],
+      type: "story",
+    };
+    bParams = {
+      title: "Pages",
+      name: "Admin",
+      tags: [],
+      type: "story",
+    };
+
+    expect(globalThis.deeperSort(aParams, bParams)).toBe(-1);
+  });
 });
