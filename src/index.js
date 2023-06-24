@@ -46,11 +46,9 @@ const transformArrayIntoOrderObject = (arr) => {
     if (Array.isArray(item)) {
       const parent = array[index - 1];
 
-      if (typeof parent !== "string") {
-        return obj;
+      if (typeof parent === "string") {
+        obj[parent].children = transformArrayIntoOrderObject(item);
       }
-
-      obj[parent].children = transformArrayIntoOrderObject(item);
     }
   });
 
