@@ -400,9 +400,10 @@ describe("index", () => {
     };
 
     deeperSortSetup([
+      ["Invalid Pattern 1"],
       "Pages",
       ["Home", "*"],
-      ["Invalid Pattern"],
+      ["Invalid Pattern 2"],
       "*",
       ["customStory", "*"],
     ]);
