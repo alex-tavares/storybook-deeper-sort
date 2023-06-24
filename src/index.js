@@ -43,12 +43,10 @@ const transformArrayIntoOrderObject = (arr) => {
       obj[item] = { order: index, children: null };
     }
 
-    if (Array.isArray(item)) {
-      const parent = array[index - 1];
+    const parent = array[index - 1];
 
-      if (typeof parent === "string") {
-        obj[parent].children = transformArrayIntoOrderObject(item);
-      }
+    if (Array.isArray(item) && typeof parent === "string") {
+      obj[parent].children = transformArrayIntoOrderObject(item);
     }
   });
 
