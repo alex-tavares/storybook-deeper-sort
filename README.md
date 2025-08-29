@@ -1,4 +1,5 @@
 [![Codecov Coverage](https://codecov.io/gh/alex-tavares/storybook-deeper-sort/branch/main/graph/badge.svg)](https://codecov.io/gh/alex-tavares/storybook-deeper-sort)
+
 ![npm](https://img.shields.io/npm/dm/storybook-deeper-sort)
 
 # Storybook Deeper Sort
