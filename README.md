@@ -4,26 +4,29 @@
 
 # Storybook Deeper Sort
 
-Provides more flexibility and more levels of control to story sort.
+Fine-grained control of Storybook's story navigation.
 
-> Note: This package is compatible with Storybook v7 and above. If you need compatibility with older versions of Storybook, please use deeperSort prior to v1.0.0.
+Storybook's built-in `options.storySort.order` stops at two levels of nesting.
+`storybook-deeper-sort` lets you keep nesting arrays and even use wildcards, so
+large libraries can maintain a predictable, hand-crafted order.
+
+> Requires Storybook v7+. For Storybook v6 support install
+> `storybook-deeper-sort@0.x`.
 
 ## Table of Contents
 
-- [About](#about)
+- [Why](#why)
 - [Installation](#installation)
-- [Usage](#usage)
+- [Quick start](#quick-start)
 - [Options](#options)
+- [License](#license)
 
-## About
+## Why
 
-This package provides a function to sort stories with an API similar to the storybooks' order array but providing more than two levels of control.
-
-Using the Storybook's built-in order array, you can have 2 levels of control:
+Storybook's native order array provides only two levels of control:
 
 ```js
 // .storybook/preview.js
-
 export const parameters = {
   options: {
     storySort: {
@@ -33,7 +36,7 @@ export const parameters = {
 };
 ```
 
-The code above would generate:
+The example above renders the following tree:
 
 ```
 Intro/
@@ -51,61 +54,24 @@ Components/
 │  ├─ A
 │  ├─ B
 │  ├─ C
-```
-
-To achieve deeper control over the story sort order, you can use the `deeperSort` function provided by this package.
-
-Using `deeperSort`, the following levels of control become possible:
-
-```js
-// .storybook/main.js
-
-import deeperSortSetup from "storybook-deeper-sort";
-
-deeperSortSetup([
-  "Intro",
-  "Pages",
-  ["Home", "Login", "Admin"],
-  "Components",
-  ["*", ["C"]],
-]);
-```
-
-Here's an example of the sort order achieved using `deeperSort`:
-
-```
-Intro/
-├─ Welcome
-Pages/
-├─ Home
-├─ Login
-├─ Admin
-Components/
-├─ PackageA/
-│  ├─ C
-│  ├─ A
-│  ├─ B
-├─ PackageB/
-│  ├─ C
-│  ├─ A
-│  ├─ B
 ```
 
 ## Installation
 
 ```bash
 # npm
-npm i -D storybook-deeper-sort
+npm install --save-dev storybook-deeper-sort
 
 # yarn
-yarn add -D storybook-deeper-sort
+yarn add --dev storybook-deeper-sort
 ```
 
-## Usage
+## Quick start
 
-1. In your `.storybook/main.js` file, import `deeperSortSetup` function and call it with the desired order array. For example:
+1. Register your desired order in `.storybook/main.js`.
 
 ```js
+// .storybook/main.js
 import deeperSortSetup from "storybook-deeper-sort";
 
 deeperSortSetup([
@@ -117,9 +83,10 @@ deeperSortSetup([
 ]);
 ```
 
-2. In your `.storybook/preview.js` file, assign the `storySort` option to a function that uses `globalThis.deeperSort` for sorting the stories. For example:
+2. Use the generated sort function in `.storybook/preview.js`.
 
 ```js
+// .storybook/preview.js
 const preview = {
   parameters: {
     options: {
@@ -128,30 +95,51 @@ const preview = {
   },
 };
 
-export default parameters;
+export default preview;
 ```
 
-The `deeperSort` function takes into account the order array provided in `deeperSortSetup` to determine the sort order of your stories. It enables more levels of control, allowing you to specify custom sorting for different sections and even individual stories.
+This setup produces the following ordering:
 
-> Please note that due to restrictions in Storybook v7, it's not possible to define the `storySort` function externally. The use of `globalThis` allows us to access the `deeperSort` function from the `preview.js` file.
+```
+Intro/
+├─ Welcome
+Pages/
+├─ Home
+├─ Login
+├─ Admin
+Components/
+├─ PackageA/
+│  ├─ C
+│  ├─ A
+│  ├─ B
+├─ PackageB/
+│  ├─ C
+│  ├─ A
+│  ├─ B
+```
+
+> Storybook v7 limits `storySort` to inline functions; exposing the function on
+> `globalThis` allows us to reuse the configuration defined in `main.js`.
 
 ## Options
 
-The `deeperSortSetup` function accepts an optional `config` parameter that allows you to customize its behavior.
+`deeperSortSetup(orderArray, config)` accepts an optional `config` object.
 
-Currently, the only available option is `docsFirst`. By default, `deeperSort` prioritizes `docs`, placing them before other story types.
+### `docsFirst` (default: `true`)
 
-To disable the prioritization of `docs`, you can set`docsFirst`to`false`:
+Docs stories are listed before other story types. Disable this behaviour:
 
 ```js
-// .storybook/main.js
-
-import deeperSortSetup from "storybook-deeper-sort";
-
 deeperSortSetup(
   ["Pages", ["Admin", "Login", "Home"], "Components", ["*", ["C", "*"]]],
   { docsFirst: false }
 );
 ```
 
-By setting `{ docsFirst: false }`, `deeperSort` will sort all story types based on their order in the provided order array without giving special priority to `docs` stories.
+With `{ docsFirst: false }` all stories are sorted solely by the provided
+`orderArray` without prioritising docs.
+
+## License
+
+MIT
+
