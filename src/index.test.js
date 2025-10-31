@@ -347,6 +347,44 @@ describe("index", () => {
     expect(globalThis.deeperSort(aParams, bParams)).toBe(0);
   });
 
+  it("should respect provided order when comparing docs with docsFirst enabled", () => {
+    const aParams = {
+      title: "DocsPath",
+      name: "Intro",
+      tags: [],
+      type: "docs",
+    };
+    const bParams = {
+      title: "DocsPath",
+      name: "GettingStarted",
+      tags: [],
+      type: "docs",
+    };
+
+    deeperSortSetup(["DocsPath", ["Intro", "GettingStarted"]]);
+
+    expect(globalThis.deeperSort(aParams, bParams)).toBe(-1);
+  });
+
+  it("should use wildcard ordering when comparing docs with docsFirst enabled", () => {
+    const aParams = {
+      title: "DocsPath",
+      name: "Changelog",
+      tags: [],
+      type: "docs",
+    };
+    const bParams = {
+      title: "DocsPath",
+      name: "Readme",
+      tags: [],
+      type: "docs",
+    };
+
+    deeperSortSetup(["DocsPath", ["Readme", "*"]]);
+
+    expect(globalThis.deeperSort(aParams, bParams)).toBe(1);
+  });
+
   it("should prioritize docs over stories", () => {
     const aParams = {
       title: "path",
