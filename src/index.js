@@ -2,11 +2,7 @@ const getOrder = (item, orderObject) =>
   orderObject[item]?.order ?? Object.keys(orderObject).length;
 
 const compare = ({ aFile, bFile, orderObject, docsFirst }) => {
-  if (docsFirst) {
-    if (aFile.type === "docs" && bFile.type === "docs") {
-      return aFile.name.localeCompare(bFile.name);
-    }
-
+  if (docsFirst && aFile.type !== bFile.type) {
     if (aFile.type === "docs") {
       return -1;
     }
