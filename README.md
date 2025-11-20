@@ -10,11 +10,19 @@ Storybook's built-in `options.storySort.order` stops at two levels of nesting.
 `storybook-deeper-sort` lets you keep nesting arrays and even use wildcards, so
 large libraries can maintain a predictable, hand-crafted order.
 
-> Requires Storybook v7+. For Storybook v6 support install
+> Storybook 10 support is ESM-only and requires Node 18+. For Storybook 7–9,
+> stay on `storybook-deeper-sort@1.1.5`. For Storybook 6, use
 > `storybook-deeper-sort@0.x`.
+
+## Compatibility matrix
+
+- Storybook 10: `storybook-deeper-sort` (ESM build, this branch)
+- Storybook 7–9: `storybook-deeper-sort@1.1.5`
+- Storybook 6: `storybook-deeper-sort@0.x`
 
 ## Table of Contents
 
+- [Compatibility matrix](#compatibility-matrix)
 - [Why](#why)
 - [Installation](#installation)
 - [Quick start](#quick-start)
@@ -142,4 +150,3 @@ With `{ docsFirst: false }` all stories are sorted solely by the provided
 ## License
 
 MIT
-
