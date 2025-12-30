@@ -19,9 +19,13 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20.x"
+          node-version: "20.17.x"
           registry-url: 'https://registry.npmjs.org'
-          npm-version: "11.5.1"
+
+      - name: Upgrade npm
+        run: |
+          npm install -g npm@11.5.1
+          npm --version
 
       - name: Install Dependencies
         run: yarn install
@@ -30,9 +34,6 @@ jobs:
         run: yarn test --coverage
 
       - name: Publish
-        env:
-          NODE_AUTH_TOKEN: ""
-          NPM_TOKEN: ""
         run: |
           npm config delete //registry.npmjs.org/:_authToken || true
           npm publish --access public
