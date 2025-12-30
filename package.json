@@ -1,7 +1,7 @@
 {
   "name": "storybook-deeper-sort",
   "version": "2.0.0",
-  "description": "Powers up stories sort by providing more levels of control.",
+  "description": "Adds deeper Storybook story sorting and story order control with wildcards.",
   "repository": "git@github.com:alex-tavares/storybook-deeper-sort.git",
   "author": "Alex Tavares",
   "type": "module",
@@ -56,6 +56,12 @@
     "storybook",
     "addon",
     "sort",
+    "sorting",
+    "story-sort",
+    "story-sorting",
+    "story-order",
+    "story-ordering",
+    "order",
     "deep-sort",
     "deeper-sort"
   ],
