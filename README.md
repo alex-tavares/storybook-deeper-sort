@@ -4,7 +4,7 @@
 
 # Storybook Deeper Sort
 
-Fine-grained control of Storybook's story navigation.
+Fine-grained control of Storybook story sorting and story order.
 
 Storybook's built-in `options.storySort.order` stops at two levels of nesting.
 `storybook-deeper-sort` lets you keep nesting arrays and even use wildcards, so
