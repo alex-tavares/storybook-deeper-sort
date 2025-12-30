@@ -30,7 +30,12 @@ jobs:
         run: yarn test --coverage
 
       - name: Publish
-        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ""
+          NPM_TOKEN: ""
+        run: |
+          npm config delete //registry.npmjs.org/:_authToken || true
+          npm publish --access public
 
       - name: Codecov
         run: yarn codecov
